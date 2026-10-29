@@ -35,7 +35,7 @@ public class LivroService {
 
     public Optional<Livro> buscarPorId(int id){
         Optional<Livro> livroEncontrado = livros
-                .stream()
+                .stream() //
                 .filter(livro -> livro.id() == id)
                 .findFirst();
 

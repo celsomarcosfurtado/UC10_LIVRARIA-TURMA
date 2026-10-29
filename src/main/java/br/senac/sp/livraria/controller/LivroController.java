@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 // POST http://localhost:8080/v1/api/livros
 // GET  http://localhost:8080/v1/api/livros
@@ -33,7 +34,14 @@ public class LivroController {
 
     @GetMapping("/{codigo}")
     public ResponseEntity<Livro> buscarPorId(@PathVariable("codigo") int id){
-        return ResponseEntity.sta
+        Optional<Livro> livroEncontrado = livroService.buscarPorId(id);
+
+        if (livroEncontrado.isPresent()){
+            return ResponseEntity.ok(livroEncontrado.get());
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+
     }
 
 }
