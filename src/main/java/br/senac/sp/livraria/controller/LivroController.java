@@ -23,8 +23,14 @@ public class LivroController {
 
     @PostMapping
     public ResponseEntity<Livro> salvar(@RequestBody Livro livro){
+        System.out.println("Endpoint chamado...");
         Livro novoLivro = livroService.salvar(livro);
         return ResponseEntity.status(201).body(novoLivro);
+    }
+
+    @PostMapping("/testar")
+    public ResponseEntity<String> testar(){
+        return ResponseEntity.ok("Funcionou!!");
     }
 
     @GetMapping

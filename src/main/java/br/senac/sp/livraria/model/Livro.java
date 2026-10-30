@@ -3,12 +3,13 @@ package br.senac.sp.livraria.model;
 import jakarta.persistence.*;
 
 // Mapeando a classe Livro com a tabela tbl_livro no banco de dados
-@Entity(name = "tb_livro")
+@Entity
+@Table(name = "tb_livro")
 public class Livro {
 
         @Id
-        @GeneratedValue(strategy = GenerationType.SEQUENCE)
-        private int id;
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        private Integer id;
 
         private String titulo;
         private String autor;
@@ -18,11 +19,11 @@ public class Livro {
         @Column(name = "ano_edicao")
         private int anoEdicao;
 
-        public int getId() {
+        public Integer getId() {
                 return id;
         }
 
-        public void setId(int id) {
+        public void setId(Integer id) {
                 this.id = id;
         }
 
