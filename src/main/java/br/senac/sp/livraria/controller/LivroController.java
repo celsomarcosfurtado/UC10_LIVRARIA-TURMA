@@ -5,7 +5,10 @@ import br.senac.sp.livraria.service.LivroService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 // POST http://localhost:8080/v1/api/livros
@@ -47,6 +50,33 @@ public class LivroController {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> excluir(@PathVariable("id") int id){
+        if (livroService.excluir(id)){
+            return ResponseEntity.status(204).build();
+        }
+
+        Map<String, Object> erro = new HashMap<>();
+        erro.put("status", 404);
+        erro.put("mensagem", "O livro com ID " + id + " não foi encontrado!");
+        erro.put("timestamp", LocalDateTime.now());
+
+        return ResponseEntity.status(404).body(erro);
+
+    }
+
+    @PutMapping
+    public ResponseEntity<Livro> atualizar(@RequestBody Livro livroAtualizado){
+
+        Livro novoLivro = livroService.atualizar(livroAtualizado);
+
+        if (novoLivro != null){
+            return ResponseEntity.status(200).body(novoLivro);
+        }
+
+        return ResponseEntity.status(404).build();
 
     }
 
