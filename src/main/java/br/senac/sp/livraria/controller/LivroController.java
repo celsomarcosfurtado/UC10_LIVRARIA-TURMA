@@ -2,6 +2,7 @@ package br.senac.sp.livraria.controller;
 
 import br.senac.sp.livraria.model.Livro;
 import br.senac.sp.livraria.service.LivroService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,7 +26,7 @@ public class LivroController {
     }
 
     @PostMapping
-    public ResponseEntity<Livro> salvar(@RequestBody Livro livro){
+    public ResponseEntity<Livro> salvar(@Valid @RequestBody Livro livro){
         System.out.println("Endpoint chamado...");
         Livro novoLivro = livroService.salvar(livro);
         return ResponseEntity.status(201).body(novoLivro);
