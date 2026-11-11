@@ -3,6 +3,7 @@ package br.senac.sp.livraria.controller;
 import br.senac.sp.livraria.model.Livro;
 import br.senac.sp.livraria.service.LivroService;
 import jakarta.validation.Valid;
+import jakarta.websocket.server.PathParam;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -53,6 +54,20 @@ public class LivroController {
         }
     }
 
+    @GetMapping(value = {"", "/"}, params = "anoEdicao")
+    public ResponseEntity<List<Livro>> findByAnoEdicaoLessThan(
+            @RequestParam("anoEdicao") int anoEdicao
+    ){
+        return ResponseEntity.status(200).body(livroService.findByAnoEdicaoLessThan(anoEdicao));
+    }
+
+    @GetMapping(value = {"", "/"}, params = "autor")
+    public ResponseEntity<List<Livro>> findByAutorStartingWith(
+            @RequestParam("autor") String autor
+    ){
+        return ResponseEntity.status(200).body(livroService.findByAutorStartingWith(autor));
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<?> excluir(@PathVariable("id") int id){
         if (livroService.excluir(id)){
@@ -66,6 +81,14 @@ public class LivroController {
 
         return ResponseEntity.status(404).body(erro);
 
+    }
+
+    @GetMapping(value = {"", "/"}, params = {"valorInicial", "valorFinal"})
+    public ResponseEntity<List<Livro>> listarPrecoPor(
+            @RequestParam("valorInicial") double valorInicial,
+            @RequestParam("valorFinal")  double valorFinal
+    ){
+        return ResponseEntity.status(200).body(livroService.listarPrecoEntre(valorInicial, valorFinal));
     }
 
     @PutMapping

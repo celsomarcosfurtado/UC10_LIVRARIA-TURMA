@@ -32,6 +32,7 @@ public class LivroService {
     }
 
     public boolean excluir(int id){
+
         // Verificar se o livro existe no banco de dados
         Optional<Livro> livroExcluir = livroRepository.findById(id);
 
@@ -55,6 +56,18 @@ public class LivroService {
 
         return null;
 
+    }
+
+    public List<Livro> findByAnoEdicaoLessThan(int anoEdicao){
+        return livroRepository.findByAnoEdicaoLessThan(anoEdicao);
+    }
+
+    public List<Livro> findByAutorStartingWith(String autor){
+        return livroRepository.findByAutorStartingWith(autor);
+    }
+
+    public List<Livro> listarPrecoEntre(double valorIncial, double valorFinal){
+        return livroRepository.listarPrecoEntre(valorIncial, valorFinal);
     }
 
 }
