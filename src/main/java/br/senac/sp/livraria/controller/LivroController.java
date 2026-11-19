@@ -14,7 +14,7 @@ import java.util.Map;
 import java.util.Optional;
 
 // POST http://localhost:8080/v1/api/livros
-// GET  http://localhost:8080/v1/api/livros
+// GET http://localhost:8080/v1/api/livros
 
 @RestController
 @RequestMapping("/v1/api/livros")
